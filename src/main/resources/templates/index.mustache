@@ -5,6 +5,13 @@
         <div class="row">
             <div class="col-md-6">
                 <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+                {{#userName}}
+                    <span id="user">{{userName}}님이 접속하였습니다. </span>
+                    <a href="/logout" role="button" class="btn btn-info active">Logout</a>
+                {{/userName}}
+                {{^userName}}
+                    <a href="/oauth2/authorization/google" role="button" class="btn btn-success active">Google Login</a>
+                {{/userName}}
             </div>
         </div>
         <br>
