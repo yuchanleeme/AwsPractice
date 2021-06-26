@@ -1,5 +1,6 @@
 package com.awspractice.springboot.web;
 
+import com.awspractice.springboot.config.auth.LoginUser;
 import com.awspractice.springboot.config.auth.dto.SessionUser;
 import com.awspractice.springboot.service.posts.PostsService;
 import com.awspractice.springboot.web.dto.PostsResponseDto;
@@ -19,11 +20,13 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
 
-        // 세션에 등록된 유저를 가져온다.
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        /*
+         세션을 통해 유저정보를 불러온다.
+         이렇게 @LoginUser만 사용하면 세션 정보를 가져올 수 있게 되었다.
+         */
         if(user != null){
             model.addAttribute("userName", user.getName());
         }
